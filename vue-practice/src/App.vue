@@ -1,33 +1,15 @@
 <template>
   <div>
-    <h1>Hello Vue!</h1>
-    <h2 class="line-through">line-through</h2>
-    <h2 v-bind:class="textDecoration" class="text-red">line-through</h2>
-    <h2 :class="isDone === true ? 'line-through' : 'highlight'">
-      line-through
-    </h2>
-    <h2
-      :class="{
-        highlight: isDone === false,
-        'text-red': username === 'scalper',
-      }"
-    >
-      Object형태의 동적 클래스
-    </h2>
-    <h2
-      :class="[
-        isDone === true ? 'line-through' : 'highlight',
-        username === 'scalper' ? 'text-green' : 'text-red',
-      ]"
-    >
-      Array 형태의 동적 클래스 부여
-    </h2>
-    <!--:class == v-bind:class-->
-    <!--
-      1) 조건 ? 참일 경우 : 아닐 경우
-      2) class="{class이름 : 조건(여러가지 조건을 줄 수 있음)}"
-      3) class="[조건 ? 참:거짓]"
-    -->
+    <h1 v-bind:style="[titleStyle, basicStyle]">Hello Vue!</h1>
+    <h1 id="title">Hello Title</h1>
+    <h1 v-bind:id="dynamicId">Hello Title</h1>
+    <a v-bind:href="url">naver</a>
+    <img v-bind:src="image.src" v-bind:alt="image.alt" />
+    <input v-bind:type="inputType" />
+    <p v-bind:style="pStyle">Hello Vue!</p>
+    <p v-bind:style="{ color: 'red', 'font-size': `${basicSize}px` }">
+      Hello Vue!
+    </p>
   </div>
 </template>
 
@@ -36,26 +18,35 @@ export default {
   name: "App",
   data() {
     return {
-      username: "scalper",
-      isDone: false,
-      textDecoration: "line-through",
+      dynamicId: "content",
+      url: "https://www.naver.com",
+      image: {
+        src: "https://placeimg.com/100/100/any",
+        alt: "random image",
+      },
+      inputType: "color",
+      pStyle: "color:red; font-size:36px;",
+      basicSize: 100,
+      basicStyle: {
+        background: "yellow",
+      },
+      titleStyle: {
+        "font-weight": "bold",
+        fontSize: "50px",
+        border: "1px solid red",
+      },
     };
   },
 };
 </script>
 
 <style>
-.text-red {
+#title {
   color: red;
+  background: yellow;
 }
-.text-green {
-  color: green;
-}
-.highlight {
-  font-weight: bold;
+#content {
+  color: blue;
   background: pink;
-}
-.line-through {
-  text-decoration: line-through;
 }
 </style>
