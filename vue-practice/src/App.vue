@@ -1,34 +1,20 @@
 <template>
   <div>
     <h1>Hello Vue!</h1>
-    <div>
-      {{ fruits }}
-    </div>
-    <div>
-      <ul>
-        <li v-for="(fruit, index) in fruits" :key="fruit">
-          {{ index + 1 }}. {{ fruit }}
+    <ul>
+      <!-- 조건 거는 방법 1
+        <li
+        v-for="(city, index) in cities.filter((c) => c.province === '경상도')"
+        :key="index">-->
+
+      <!--조건거는 방법 2
+          조건적으로 list를 랜더링할때 template 사용-->
+      <template v-for="(city, index) in cities" :key="index">
+        <li v-if="city.province === '경상도'">
+          {{ city.name }}
         </li>
-      </ul>
-      <ul>
-        <li v-for="(fruit, index) of fruits" :key="fruit">
-          {{ index + 1 }}. {{ fruit }}
-        </li>
-      </ul>
-      <h2 v-for="(value, key, index) in user" :key="key">
-        {{ index }}. {{ key }} ==> {{ value }}
-      </h2>
-      <p v-for="n in 5" :key="n">{{ n }}</p>
-      <div v-for="(animal, animalIndex) in animals" :key="animalIndex">
-        <h2>Animal ===> {{ animal.name }}</h2>
-        <h3>food</h3>
-        <ul>
-          <li v-for="(food, foodIndex) in animal.favorites" :key="foodIndex">
-            {{ food }}
-          </li>
-        </ul>
-      </div>
-    </div>
+      </template>
+    </ul>
   </div>
 </template>
 
@@ -37,16 +23,13 @@ export default {
   name: "App",
   data() {
     return {
-      fruits: ["banana", "strawberry", "apple", "melon"],
-      user: {
-        name: "scalper",
-        age: 100,
-        job: "programmer",
-      },
-      animals: [
-        { name: "monkey", size: "medium", favorites: ["banana", "apple"] },
-        { name: "lion", size: "big", favorites: ["deer", "cow"] },
-        { name: "monkey", size: "small", favorites: ["cheese", "rice"] },
+      cities: [
+        { name: "서울", province: "경기도" },
+        { name: "대전", province: "충청도" },
+        { name: "대구", province: "경상도" },
+        { name: "부산", province: "경상도" },
+        { name: "인천", province: "경기도" },
+        { name: "광주", province: "전라도" },
       ],
     };
   },
