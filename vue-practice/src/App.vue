@@ -1,14 +1,21 @@
 <template>
   <div>
-    <h1>Hello Vue!</h1>
-    <h2>{{ age }}</h2>
-    <h2>5년 뒤 :: {{ add(5) }}</h2>
-    <h2>10년 뒤 :: {{ add(10) }}</h2>
-    <h2>15년 뒤 :: {{ add(15) }}</h2>
-
-    <h2>동갑의 30명이 있다면 나이의 총 합은 {{ multiply(age, 30) }}</h2>
-    <h2>동갑의 10명이 있다면 나이의 총 합은 {{ multiply(age) }}</h2>
-    <h2>{{ getTotalScore(100) }}</h2>
+    <h1>Hello {{ name }}!</h1>
+    <button v-on:click.middle="changeName">change name</button>
+    <!--<modifier> 클릭 left는 default / 
+        middle : 가운데 휠 클릭, right : 오른쪽 휠 클릭-->
+    <button
+      v-on:mouseover="name = 'Code Scalper'"
+      v-on:mouseleave="name = 'Scalper'"
+    >
+      change name
+    </button>
+    <a v-on:click.prevent="movePage" href="https://naver.com">naver로 이동</a>
+    <h2>{{ number }}</h2>
+    <button v-on:click="increment($event, 1)">숫자 1 증가</button>
+    <button v-on:click="decrement(1)">숫자 1 감소</button>
+    <button v-on:click="increment(5)">숫자 5 증가</button>
+    <button v-on:click="decrement(5)">숫자 5 감소</button>
   </div>
 </template>
 
@@ -17,36 +24,38 @@ export default {
   name: "App",
   data() {
     return {
-      age: 30,
+      name: "Scalper",
+      number: 0,
     };
   },
   methods: {
-    add(num) {
-      // 화살표 함수 : this 고정
-      // 일반 함수 : this가 오브젝트, 즉 객체를 가리킴
-      console.log(this);
-      return this.age + num;
+    changeName() {
+      this.name = "Code Scalper";
     },
-    // add: (num) => {
-    //   // 화살표 함수 : lexical scopte(함수의 선언에 따라 scope 결정)
-    //   //              즉, 호출에 영향을 받지 않고 고정된다.
-    //   console.log(this);
-    //   return this.age + num;
-    // },
-
-    multiply(num1, num2 = 10) {
-      //num2에 default값 10 부여
-      return num1 * num2;
+    movePage() {
+      //e.preventDefault(); // 기본적으로 탑제되있는 페이지 이동 기능을 막아줌
+      // parameter로 e 줘야 함 (지금은 위에 쓰느냐 생략)
+      const check = confirm("페이지를 이동하시겠습니까?");
+      if (check) {
+        console.log("page 이동");
+      } else {
+        console.log("page 이동안함");
+      }
     },
-
-    getTotalScore(num) {
-      return this.multiply(num, num);
+    increment(e, num) {
+      console.log(e);
+      this.number += num;
     },
-    // method에서 data에 접근하기 위해서는 this 키워드를 쓰고,
-    // 또 다른 method를 접근하기 위해서도 this 키워드를 쓴다.
-    // 즉, data가 가진 property들에 접근하기 위해서는 this 키워드를 써야 한다.
+    decrement(num) {
+      this.number -= num;
+    },
   },
 };
 </script>
 
-<style></style>
+<style>
+a {
+  font-size: 24px;
+  display: block;
+}
+</style>
