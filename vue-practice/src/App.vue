@@ -1,15 +1,34 @@
 <template>
   <div>
-    <h1 v-bind:style="[titleStyle, basicStyle]">Hello Vue!</h1>
-    <h1 id="title">Hello Title</h1>
-    <h1 v-bind:id="dynamicId">Hello Title</h1>
-    <a v-bind:href="url">naver</a>
-    <img v-bind:src="image.src" v-bind:alt="image.alt" />
-    <input v-bind:type="inputType" />
-    <p v-bind:style="pStyle">Hello Vue!</p>
-    <p v-bind:style="{ color: 'red', 'font-size': `${basicSize}px` }">
-      Hello Vue!
-    </p>
+    <h1>Hello Vue!</h1>
+    <div>
+      {{ fruits }}
+    </div>
+    <div>
+      <ul>
+        <li v-for="(fruit, index) in fruits" :key="fruit">
+          {{ index + 1 }}. {{ fruit }}
+        </li>
+      </ul>
+      <ul>
+        <li v-for="(fruit, index) of fruits" :key="fruit">
+          {{ index + 1 }}. {{ fruit }}
+        </li>
+      </ul>
+      <h2 v-for="(value, key, index) in user" :key="key">
+        {{ index }}. {{ key }} ==> {{ value }}
+      </h2>
+      <p v-for="n in 5" :key="n">{{ n }}</p>
+      <div v-for="(animal, animalIndex) in animals" :key="animalIndex">
+        <h2>Animal ===> {{ animal.name }}</h2>
+        <h3>food</h3>
+        <ul>
+          <li v-for="(food, foodIndex) in animal.favorites" :key="foodIndex">
+            {{ food }}
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -18,35 +37,20 @@ export default {
   name: "App",
   data() {
     return {
-      dynamicId: "content",
-      url: "https://www.naver.com",
-      image: {
-        src: "https://placeimg.com/100/100/any",
-        alt: "random image",
+      fruits: ["banana", "strawberry", "apple", "melon"],
+      user: {
+        name: "scalper",
+        age: 100,
+        job: "programmer",
       },
-      inputType: "color",
-      pStyle: "color:red; font-size:36px;",
-      basicSize: 100,
-      basicStyle: {
-        background: "yellow",
-      },
-      titleStyle: {
-        "font-weight": "bold",
-        fontSize: "50px",
-        border: "1px solid red",
-      },
+      animals: [
+        { name: "monkey", size: "medium", favorites: ["banana", "apple"] },
+        { name: "lion", size: "big", favorites: ["deer", "cow"] },
+        { name: "monkey", size: "small", favorites: ["cheese", "rice"] },
+      ],
     };
   },
 };
 </script>
 
-<style>
-#title {
-  color: red;
-  background: yellow;
-}
-#content {
-  color: blue;
-  background: pink;
-}
-</style>
+<style></style>
